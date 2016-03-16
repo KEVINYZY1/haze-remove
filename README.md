@@ -4,20 +4,17 @@
 用的opencv库版本有2.89和3.10  
 
 
-# 《Single Image Haze Removal Using Dark Channel Prior》基于暗通道的图像去雾算法研究与改进
-
-
 #前言
-目前的图像去雾算法很多，思路基本上两条：  
-* 1，基于非物理模型，本质上是增强图像的对比度与颜色，并没有对雾天图像的形成原因进行分析而补偿。代表方法是直方图均衡化。效果一般。  
+目前的图像去雾算法很多，思路基本上两条：   
+* 1,基于非物理模型，本质上是增强图像的对比度与颜色，并没有对雾天图像的形成原因进行分析而补偿。代表方法是直方图均衡化。效果一般。  
 * 2，基于物理模型，现在效果好的去雾算法都是基于物理模型，利用大气物理散射规律来建立图像还原模型，而不同的论文算法，用的模型都不尽相同。基于物理模型的算法因为基于模型更好的分析了含雾图像。并且与现实贴近，效果都不错，只是算法复杂度不同，计算时间长短不同而已。代表方法是何恺明博士的[Single Image Haze Removal Using Dark Channel Prior][1]，即基于暗通道先验的去雾算法。
 目前感觉效果最好的就是基于暗通道先验的去雾算法。  
 
 ##Single Image Haze Removal Using Dark Channel Prior
-在去雾算法中，利用的以下物理模型：![此处输入图片的描述][2]
+在去雾算法中，利用的以下物理模型：![此处输入图片的描述][2]  
 其中I(x)是有雾后的图像，J(x)是无雾图像，A是全球大气光照值，t(x)是透射率图。
 
-上式经过化简之后可得到：![][3]
+上式经过化简之后可得到：![][3]  
 其实就是已知I(x)，然后通过分析I(x)，算出J(x)。
 
 ##暗通道
@@ -43,15 +40,15 @@ A的计算方法很简单，
 对于透射率的计算有以下式子：
 ![][6]
 
-其中，w是为了不使图像失真，而引人的控制保留雾的比重的参数。
-如果只是这么做了话，因为透射率图的计算方法，我们是在一个个区域内算的，所以透射率图会是一块块的。所以我们还要对透射率图进行处理。计算出精细的透射率图。
-在原论文中，采用的软扣图算法，十分慢。
+其中，w是为了不使图像失真，而引人的控制保留雾的比重的参数。  
+如果只是这么做了话，因为透射率图的计算方法，我们是在一个个区域内算的，所以透射率图会是一块块的。所以我们还要对透射率图进行处理。计算出精细的透射率图。  
+在原论文中，采用的软扣图算法，十分慢。  
 
 ##去雾
-我们现在已经计算得出了A，t(x)，I(x)，可以进行去雾了。
+我们现在已经计算得出了A，t(x)，I(x)，可以进行去雾了。  
 
 如下式：
-![][7]
+![][7]  
 
 其中t0是为了防止t(x)中的值为0以及防止t(x)过下而使J(x)过大，J(x)过大会使图像偏白。  
 
@@ -103,11 +100,11 @@ A的值可以取3个通道的平均值，也可以取前0.1%的平均值。也�
 
 参考：
 
-[基于暗通道的图像去雾算法_CVPR09 BestPaper_KaiMing He][18]
-[《Single Image Haze Removal Using Dark Channel Prior》一文中图像去雾算法的原理、实现、效果（速度可实时）][19]
-[opencv实现导向滤波][20]
-[Single Image Haze Removal][21]
-[Guided Image Filtering][22]
+[基于暗通道的图像去雾算法_CVPR09 BestPaper_KaiMing He][18]  
+[《Single Image Haze Removal Using Dark Channel Prior》一文中图像去雾算法的原理、实现、效果（速度可实时）][19]  
+[opencv实现导向滤波][20]  
+[Single Image Haze Removal][21]  
+[Guided Image Filtering][22]  
 
 
   [1]: http://research.microsoft.com/en-us/um/people/kahe/cvpr09/index.html
@@ -132,4 +129,3 @@ A的值可以取3个通道的平均值，也可以取前0.1%的平均值。也�
   [20]: http://blog.csdn.net/wds555/article/details/23176313
   [21]: http://research.microsoft.com/en-us/um/people/kahe/cvpr09/index.html
   [22]: http://research.microsoft.com/en-us/um/people/kahe/eccv10/index.html
-
