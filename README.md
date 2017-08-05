@@ -1,4 +1,4 @@
-原文：[博客文章地址](http://loliko.me/single-image-haze-removal-using-dark-channel-prior/)
+原文：[博客文章地址](http://loliko.me/archives/single-image-haze-removal-using-dark-channel-prior.html/)
 
 理论上来说代码一定是能编译能过的。
 用的opencv库版本有2.89和3.10  
